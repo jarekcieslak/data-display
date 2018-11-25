@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Custom variables to make bootstrap work with angular material
+@import "variables";
+
+// Imports functions, variables, and mixins that are needed by other Bootstrap files
+//@import "~bootstrap/scss/functions";
+//@import "~bootstrap/scss/variables";
+//@import "~bootstrap/scss/mixins";
+//
+//// Import Roboot
+//@import "~bootstrap/scss/reboot";
+//@import "~bootstrap/scss/grid";
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+// Custom reset to make bootstrap work with angular material
+@import "reset";
+
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
