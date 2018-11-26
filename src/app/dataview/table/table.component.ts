@@ -1,26 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSort, MatTableDataSource} from '@angular/material';
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-table',
@@ -29,16 +8,70 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TableComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  // Input property with default settings
+  @Input()
+  marketData: MarketDataModel = {
+    ids: [],
+    referenceValues: null,
+    data: []
+  };
+
+  dataSource: MatTableDataSource<Datapoint>;
+  dataIds: string[] = [];
+  displayedColumns: string[];
 
   @ViewChild(MatSort) sort: MatSort;
-
-  ngOnInit() {
-    this.dataSource.sort = this.sort;
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor() {
   }
+
+  ngOnInit() {
+    this.prepareDataForTheTable();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  private prepareDataForTheTable() {
+
+    // Create list of instrumentIDs
+    this.dataIds = this.marketData.ids.map(String);
+
+    // Create column headers for the table
+    this.displayedColumns = ['Date', ...this.marketData.ids.map(item => '' + item)];
+
+    // Prepare datatable
+    this.dataSource = new MatTableDataSource(this.marketData.data);
+
+    // Enable pagination
+    this.dataSource.paginator = this.paginator;
+
+    // Enable sorting
+    this.enableTableSorting();
+
+    // Enable filtering
+    this.enableTableFiltering();
+  }
+
+  private enableTableFiltering() {
+    this.dataSource.filterPredicate = ((data, filter: string) => {
+      return true;
+    });
+  }
+
+  private enableTableSorting() {
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      const instrumentId = parseInt(property, 10);
+      if (!isNaN(instrumentId)) {
+        return item.values[instrumentId];
+      } else {
+        return item.date;
+      }
+    };
+    this.dataSource.sort = this.sort;
+  }
+
 
 }

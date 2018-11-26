@@ -1,1 +1,19 @@
-<app-table></app-table>
+<div class="row" *ngIf="loading">
+  <div class="col">
+    <mat-spinner class="center"></mat-spinner>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="!loading">
+  <app-filters (filtersChanged)="handleFiltersChange($event)"></app-filters>
+</div>
+
+<div class="row" *ngIf="!loading">
+  <app-chart></app-chart>
+</div>
+
+<div class="row" *ngIf="!loading">
+  <app-table [marketData]="marketData"></app-table>
+</div>
+

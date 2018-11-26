@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MarketDataService} from '../services/market-data.service';
 
 @Component({
   selector: 'app-display',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
 
-  constructor() { }
+  loading = false;
+  marketData: MarketDataModel;
+  filters: FilterModel;
+
+  constructor(private marketDataService: MarketDataService) {
+  }
+
+  handleFiltersChange(filters: FilterModel) {
+    console.log(filters);
+  }
 
   ngOnInit() {
+    this.loading = true;
+    this.marketDataService.getMarketData().subscribe(data => {
+      this.marketData = data;
+      this.loading = false;
+    });
   }
 
 }
