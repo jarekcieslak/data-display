@@ -6,7 +6,10 @@
 
 
 <div class="row" *ngIf="!loading">
-  <app-filters (filtersChanged)="handleFiltersChange($event)"></app-filters>
+  <app-filters
+    (filtersChanged)="handleFiltersChange($event)"
+    (resetTriggered)="handleReset()">
+  </app-filters>
 </div>
 
 <div class="row" *ngIf="!loading">

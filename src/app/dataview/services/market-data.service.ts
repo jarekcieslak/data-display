@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 // import 'rxjs/add/operator/switchMap';
 import {map} from 'rxjs/operators';
+import {DatapointModel, MarketDataJson, MarketDataModel} from '../models/marketData.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -83,7 +84,7 @@ export class MarketDataService {
     return {
       referenceValues: referenceValues,
       ids: instrumentIds,
-      data: (transformed as Datapoint[])
+      data: (transformed as DatapointModel[])
     };
   }
 }

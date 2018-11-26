@@ -15,9 +15,10 @@ import {ChartComponent} from './chart/chart.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { FiltersComponent } from './filters/filters.component';
+import { NoDataPipe } from './no-data.pipe';
 
 @NgModule({
-  declarations: [DisplayComponent, TableComponent, ChartComponent, FiltersComponent],
+  declarations: [DisplayComponent, TableComponent, ChartComponent, FiltersComponent, NoDataPipe],
   imports: [
     CommonModule,
     FormsModule,

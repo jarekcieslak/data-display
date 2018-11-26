@@ -1,4 +1,4 @@
-interface MarketDataJson {
+export interface MarketDataJson {
   instrumentId: number;
   timeSeries: {
     entries: {
@@ -8,18 +8,18 @@ interface MarketDataJson {
   };
 }
 
-interface MarketDataModel {
+export interface MarketDataModel {
   ids: number[];
   referenceValues: { [key: number]: number };
-  data: Datapoint[];
+  data: DatapointModel[];
 }
 
-interface Datapoint {
+export interface DatapointModel {
   date: Date;
   values: object;
 }
 
-interface FilterModel {
+export interface FilterModel {
   dateFrom: Date;
   dateTo: Date;
   valueFrom: number;

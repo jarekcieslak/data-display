@@ -1,22 +1,21 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {DatapointModel, FilterModel, MarketDataModel} from '../models/marketData.interface';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
-  // Input property with default settings
   @Input()
-  marketData: MarketDataModel = {
-    ids: [],
-    referenceValues: null,
-    data: []
-  };
+  marketData: MarketDataModel;
 
-  dataSource: MatTableDataSource<Datapoint>;
+  @Input()
+  filters: FilterModel;
+
+  dataSource: MatTableDataSource<DatapointModel>;
   dataIds: string[] = [];
   displayedColumns: string[];
 
@@ -27,7 +26,19 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.marketData = {
+      ids: [],
+      referenceValues: null,
+      data: []
+    };
     this.prepareDataForTheTable();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.marketData.firstChange) {
+      this.prepareDataForTheTable();
+    }
+
   }
 
   applyFilter(filterValue: string) {
@@ -51,15 +62,15 @@ export class TableComponent implements OnInit {
     // Enable sorting
     this.enableTableSorting();
 
-    // Enable filtering
-    this.enableTableFiltering();
+    // // Enable filtering
+    // this.enableTableFiltering();
   }
 
-  private enableTableFiltering() {
-    this.dataSource.filterPredicate = ((data, filter: string) => {
-      return true;
-    });
-  }
+  // private enableTableFiltering() {
+  //   this.dataSource.filterPredicate = ((data, filter: string) => {
+  //     return true;
+  //   });
+  // }
 
   private enableTableSorting() {
     this.dataSource.sortingDataAccessor = (item, property) => {
