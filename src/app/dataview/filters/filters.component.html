@@ -1,0 +1,26 @@
+<div class="col-5">
+  <mat-form-field>
+    <input matInput [(ngModel)]="filters.dateFrom" [matDatepicker]="fromPicker" placeholder="From date">
+    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromPicker startView="year" [startAt]=""></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="filters.dateTo" [matDatepicker]="toPicker" placeholder="To date">
+    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+    <mat-datepicker #toPicker startView="year" [startAt]=""></mat-datepicker>
+  </mat-form-field>
+</div>
+<div class="col-5">
+  <mat-form-field>
+    <input matInput placeholder="Minimum value" type="number" [(ngModel)]="filters.valueFrom">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Maximum value" type="number" [(ngModel)]="filters.valueTo">
+  </mat-form-field>
+
+</div>
+<div class="col-2">
+  <button mat-flat-button color="primary">Apply filters</button>
+  <button mat-button color="primary" (click)="reset()">Reset filters</button>
+</div>
+
