@@ -1,22 +1,28 @@
-<div class="row" *ngIf="loading">
+<div class="row" *ngIf="loadingStatus === 'loading'">
   <div class="col">
     <mat-spinner class="center"></mat-spinner>
   </div>
 </div>
+<div class="row" *ngIf="loadingStatus === 'error'">
+  <div class="col">
+    <h1>Error occurred.</h1>
+    <h5>Error communicating with the backend. Please check your connection.</h5>
+  </div>
+</div>
 
 
-<div class="row" *ngIf="!loading">
+<div class="row" *ngIf="loadingStatus === 'data'">
   <app-filters
     (filtersChanged)="handleFiltersChange($event)"
     (resetTriggered)="handleReset()">
   </app-filters>
 </div>
 
-<div class="row" *ngIf="!loading">
+<div class="row" *ngIf="loadingStatus === 'data'">
   <app-chart [marketData]="marketData"></app-chart>
 </div>
 
-<div class="row" *ngIf="!loading">
+<div class="row" *ngIf="loadingStatus === 'data'">
   <app-table [marketData]="marketData"></app-table>
 </div>
 

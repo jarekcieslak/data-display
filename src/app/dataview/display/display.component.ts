@@ -9,10 +9,14 @@ import {DatapointModel, FilterModel, MarketDataModel} from '../models/marketData
 })
 export class DisplayComponent implements OnInit {
 
-  loading = false;
+  loadingStatus = 'loading';
   marketData: MarketDataModel;
 
   constructor(private marketDataService: MarketDataService) {
+  }
+
+  handleReset() {
+    this.loadData();
   }
 
   handleFiltersChange(filters: FilterModel) {
@@ -21,11 +25,21 @@ export class DisplayComponent implements OnInit {
     });
   }
 
-  handleReset() {
+  ngOnInit() {
+    this.loadingStatus = 'loading';
     this.loadData();
   }
 
-  rowMatchesFilter(row: DatapointModel, filters: FilterModel): boolean {
+  private loadData() {
+    return this.marketDataService.getMarketData().subscribe(data => {
+      this.marketData = data;
+      this.loadingStatus = 'data';
+    }, error => {
+      this.loadingStatus = 'error';
+    });
+  }
+
+  private rowMatchesFilter(row: DatapointModel, filters: FilterModel): boolean {
 
     // Filter out dates
     if (row.date <= filters.dateTo && row.date >= filters.dateFrom) {
@@ -49,14 +63,4 @@ export class DisplayComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.loadData();
-  }
-
-  private loadData() {
-    return this.marketDataService.getMarketData().subscribe(data => {
-      this.marketData = data;
-      this.loading = false;
-    });
-  }
 }

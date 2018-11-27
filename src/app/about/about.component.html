@@ -1,0 +1,72 @@
+<h1>About the assignment</h1>
+<hr/>
+
+<h4>About</h4>
+<p>Solution was developed using Angular 7 with some additional libraries. Data is served via REST API and exposed using <a
+  href="https://github.com/typicode/json-server">json-server</a>. Additional libraries used:</p>
+<ul>
+  <li>Chart.js (to generate charts)</li>
+  <li>Angular material (for consistent material design UI controls)</li>
+  <li>Twitter bootstrap (grid & css styling)</li>
+</ul>
+
+<h4>Installation</h4>
+<ol>
+  <li><strong>npm install / yarn install</strong> in the main directory</li>
+  <li>In additional terminal window run mock backend using <strong>npm run mock-server / yarn run
+    mock-server</strong>. <br/>That should start local development server serving data via REST API. Server should run
+    under http://localhost:3000.
+  </li>
+  <li>In order to start the development version of the application frontend run: <strong>npm run start / yarn run
+    start</strong></li>
+  <li>In order to start the production build run: <strong>npm run start-prod / yarn run start-prod</strong>.</li>
+</ol>
+<strong>Remark:</strong> It's recommended to run production version, because the total app bundle is smaller and everything is working faster, but it's not possible to debug the app easily.
+
+<h4>Assumptions & Remarks</h4>
+<ul>
+  <li>Some further work would be necessary to remove js dependencies that are not needed on production build (Improve
+    tree-shaking).
+  </li>
+  <li>Twitter bootstrap could be replaced with a simpler framework like for example <a href="http://getskeleton.com/">http://getskeleton.com/</a>
+    or simple set of responsive scss mixins.
+  </li>
+  <li>I haven't done any validation on min/max filters and from/to dates. So it's possible to select max that is smaller
+    than min. Needs some further work
+  </li>
+</ul>
+
+<h4>Feature summary</h4>
+<table class="table">
+  <tr>
+    <td>A graph of provided price time series normalized to 100% at the start date</td>
+    <td>Done. Everything is scaled using first data point's value.</td>
+  </tr>
+  <tr>
+    <td>An easily navigable table of the same time series values as for the graph (columns: date,
+      instrument 1 value, instrument 2 value, ...)
+    </td>
+    <td>Done.</td>
+  </tr>
+  <tr>
+    <td>Two data filters.
+      <ul>
+        <li>with start and end for dates, when applied only the dates satisfying the filter
+          should be shown in the graph and in the table
+        </li>
+        <li>with min and max for values, when applied only the values satisfying the filter
+          should be shown in the graph and in the table
+        </li>
+      </ul>
+    </td>
+    <td><br/>Done.<br/><br/> Done.</td>
+  </tr>
+  <tr>
+    <td>Controls for filtering of time series to be displayed in the graph and shown in the table (i.e.
+      to be able to select only a subset of all instruments)
+    </td>
+    <td>Done. It's possible to select a subset of data in the graph, but that's not reflected in the table. Needs
+      further work.
+    </td>
+  </tr>
+</table>

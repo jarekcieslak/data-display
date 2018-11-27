@@ -1,13 +1,15 @@
 <div class="col-5">
   <mat-form-field>
-    <input matInput [(ngModel)]="filters.dateFrom" [matDatepicker]="fromPicker" placeholder="From date">
+    <input matInput (click)="fromPicker.open()" [(ngModel)]="filters.dateFrom" [matDatepicker]="fromPicker"
+           placeholder="From date">
     <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-    <mat-datepicker #fromPicker startView="year" [startAt]=""></mat-datepicker>
+    <mat-datepicker #fromPicker [startAt]=""></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="filters.dateTo" [matDatepicker]="toPicker" placeholder="To date">
+    <input matInput (click)="toPicker.open()" [(ngModel)]="filters.dateTo" [matDatepicker]="toPicker"
+           placeholder="To date">
     <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-    <mat-datepicker #toPicker startView="year" [startAt]=""></mat-datepicker>
+    <mat-datepicker #toPicker [startAt]=""></mat-datepicker>
   </mat-form-field>
 </div>
 <div class="col-5">
