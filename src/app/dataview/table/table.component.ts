@@ -15,10 +15,10 @@ export class TableComponent implements OnInit, OnChanges {
   @Input()
   filters: FilterModel;
 
+  // Internal properties used by the view
   dataSource: MatTableDataSource<DatapointModel>;
   dataIds: string[] = [];
   displayedColumns: string[];
-
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -26,11 +26,13 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // Set initial values for the view
     this.marketData = {
       ids: [],
       referenceValues: null,
       data: []
     };
+    // Parse input data and transform it to a way that's consumable by the table component.
     this.prepareDataForTheTable();
   }
 
@@ -38,7 +40,6 @@ export class TableComponent implements OnInit, OnChanges {
     if (!changes.marketData.firstChange) {
       this.prepareDataForTheTable();
     }
-
   }
 
   applyFilter(filterValue: string) {
@@ -62,15 +63,7 @@ export class TableComponent implements OnInit, OnChanges {
     // Enable sorting
     this.enableTableSorting();
 
-    // // Enable filtering
-    // this.enableTableFiltering();
   }
-
-  // private enableTableFiltering() {
-  //   this.dataSource.filterPredicate = ((data, filter: string) => {
-  //     return true;
-  //   });
-  // }
 
   private enableTableSorting() {
     this.dataSource.sortingDataAccessor = (item, property) => {
@@ -83,6 +76,5 @@ export class TableComponent implements OnInit, OnChanges {
     };
     this.dataSource.sort = this.sort;
   }
-
 
 }

@@ -3,6 +3,7 @@
     <mat-spinner class="center"></mat-spinner>
   </div>
 </div>
+
 <div class="row" *ngIf="loadingStatus === 'error'">
   <div class="col">
     <h1>Error occurred.</h1>
@@ -10,19 +11,21 @@
   </div>
 </div>
 
-
-<div class="row" *ngIf="loadingStatus === 'data'">
-  <app-filters
-    (filtersChanged)="handleFiltersChange($event)"
-    (resetTriggered)="handleReset()">
-  </app-filters>
+<div [style.visibility]="loadingStatus === 'loading' ? 'hidden' : 'visible'" *ngIf="loadingStatus === 'data'">
+  <div class="row">
+    <app-filters
+      (filtersChanged)="handleFiltersChange($event)"
+      (resetTriggered)="handleReset()">
+    </app-filters>
+  </div>
 </div>
 
-<div class="row" *ngIf="loadingStatus === 'data'">
-  <app-chart [marketData]="marketData"></app-chart>
-</div>
+<div [style.visibility]="loadingStatus === 'loading' ? 'hidden' : 'visible'" *ngIf="loadingStatus !== 'error'">
+  <div class="row">
+    <app-chart [marketData]="marketData"></app-chart>
+  </div>
 
-<div class="row" *ngIf="loadingStatus === 'data'">
-  <app-table [marketData]="marketData"></app-table>
+  <div class="row">
+    <app-table [marketData]="marketData"></app-table>
+  </div>
 </div>
-

@@ -12,10 +12,9 @@ export class ChartComponent implements OnInit, OnChanges {
   @Input()
   marketData: MarketDataModel;
 
-  @ViewChild('chart') donut: ElementRef;
 
   chart: Chart;
-
+  @ViewChild('chart') chartRef: ElementRef;
   COLORS = ['#3e95cd', '#8e5ea2', '#3cba9f', '#e8c3b9', '#c45850', '#3cba9f'];
 
   constructor() {
@@ -33,8 +32,8 @@ export class ChartComponent implements OnInit, OnChanges {
         }
         const ids = changes.marketData.currentValue.ids;
         const data = changes.marketData.currentValue.data;
-        const sampleSize = 50;
-        const chartCtx = this.donut.nativeElement.getContext('2d');
+        const sampleSize = Math.round(changes.marketData.currentValue.data.length / 40);
+        const chartCtx = this.chartRef.nativeElement.getContext('2d');
 
         const dataSet = this.generateDataset(ids, data, sampleSize);
         const labelSet = this.generateLabelset(changes, sampleSize);

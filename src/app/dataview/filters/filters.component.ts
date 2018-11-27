@@ -21,7 +21,12 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reset();
+    this.filters = {
+      dateFrom: new Date(Date.UTC(2010, 0, 1, 0, 0, 0)),
+      dateTo: new Date(),
+      valueFrom: 0,
+      valueTo: 500
+    };
   }
 
   reset() {

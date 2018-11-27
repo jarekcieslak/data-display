@@ -9,11 +9,16 @@ import {DatapointModel, MarketDataJson, MarketDataModel} from '../models/marketD
   providedIn: 'root'
 })
 export class MarketDataService {
+
   BASE_URL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * Returns Observable of MarketDataModel (all the data received from the api,
+   * but transformed to more convenient way)
+   */
   getMarketData(): Observable<MarketDataModel> {
     return this.http
       .get(`${this.BASE_URL}/market-data`)
@@ -65,6 +70,7 @@ export class MarketDataService {
       return {ids: [], referenceValues: null, data: []};
     }
 
+    // Transform the output object into array
     transformed = Object
       .entries(transformed)
       .map(item => {
@@ -83,9 +89,9 @@ export class MarketDataService {
       });
 
     return {
-      referenceValues: referenceValues,
       ids: instrumentIds,
-      data: (transformed as DatapointModel[])
+      data: (transformed as DatapointModel[]),
+      referenceValues: referenceValues,
     };
   }
 
