@@ -10,7 +10,9 @@ import {DatapointModel, MarketDataJson, MarketDataModel} from '../models/marketD
 })
 export class MarketDataService {
 
-  BASE_URL = 'http://localhost:3000';
+  // BASE_URL = 'http://localhost:3000';
+  BASE_URL = `${window.location.protocol}//${window.location.hostname}:3000`;
+
 
   constructor(private http: HttpClient) {
   }
